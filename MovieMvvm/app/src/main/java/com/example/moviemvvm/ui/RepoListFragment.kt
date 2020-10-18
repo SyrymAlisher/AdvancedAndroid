@@ -13,11 +13,13 @@ import com.example.moviemvvm.databinding.FragmentRepoListBinding
 import com.example.moviemvvm.ui.adapter.RepoListAdapter
 import com.example.moviemvvm.viewmodel.RepoListViewModel
 import kotlinx.android.synthetic.main.fragment_repo_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class RepoListFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentRepoListBinding
     private lateinit var adapter: RepoListAdapter
+    private val repoListViewModel:RepoListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +28,10 @@ class RepoListFragment : Fragment() {
     ): View? {
 
         viewDataBinding = FragmentRepoListBinding.inflate(inflater, container, false).apply {
-            viewmodel =
-                ViewModelProviders.of(this@RepoListFragment).get(RepoListViewModel::class.java)
-
             setLifecycleOwner(viewLifecycleOwner)
+
         }
+        viewDataBinding.viewmodel = repoListViewModel
 
         return viewDataBinding.root
     }
@@ -39,10 +40,6 @@ class RepoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.viewmodel?.fetchRepoList()
-        view.setOnClickListener {
-
-        }
-
         setupAdapter()
         setObservers()
     }

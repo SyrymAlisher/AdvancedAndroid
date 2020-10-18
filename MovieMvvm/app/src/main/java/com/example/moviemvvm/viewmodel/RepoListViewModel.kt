@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import com.example.moviemvvm.data.model.Item
 import com.example.moviemvvm.data.repository.RepoListRepository
 
-class RepoListViewModel : BaseViewModel() {
+class RepoListViewModel(val repoListRepository: RepoListRepository) : BaseViewModel() {
     val repoListLive = MutableLiveData<List<Item>>()
 
     fun fetchRepoList() {
         dataLoading.value = true
-        RepoListRepository.getInstance().getRepoList { isSuccess, response ->
+        repoListRepository.getRepoList { isSuccess, response ->
             dataLoading.value = false
             if (isSuccess) {
                 repoListLive.value = response?.results
