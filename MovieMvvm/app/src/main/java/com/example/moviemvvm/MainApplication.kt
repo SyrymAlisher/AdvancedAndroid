@@ -1,10 +1,8 @@
 package com.example.moviemvvm
 
 import android.app.Application
-import com.example.moviemvvm.di.networkModule
-import com.example.moviemvvm.di.repositoryModule
-import com.example.moviemvvm.di.sharedPrefModule
-import com.example.moviemvvm.di.viewModelModule
+import com.example.moviemvvm.di.*
+
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,6 +15,13 @@ class MainApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
+            modules(
+                viewModelModule,
+                useCaseModule,
+                repositoryModule,
+                networkModule,
+                sharedPrefModule
+            )
             koin.loadModules(listOf(repositoryModule,networkModule, sharedPrefModule, viewModelModule))
 
 //            modules(viewModelModule, repositoryModule, networkModule, sharedPrefModule)

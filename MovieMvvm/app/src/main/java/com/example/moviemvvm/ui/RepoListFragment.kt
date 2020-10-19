@@ -46,7 +46,7 @@ class RepoListFragment : Fragment() {
 
 
     private fun setObservers() {
-        viewDataBinding.viewmodel?.repoListLive?.observe(viewLifecycleOwner, {
+        viewDataBinding.viewmodel?.fetchRepoList()?.observe(viewLifecycleOwner, {
             adapter.updateRepoList(it)
         })
     }
